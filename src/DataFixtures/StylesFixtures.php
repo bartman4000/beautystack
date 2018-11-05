@@ -5,7 +5,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Style;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -84,23 +83,35 @@ class StylesFixtures extends Fixture
         );
     }
 
+    /**
+     * @param string $guid
+     * @param string $name
+     * @param array $tags
+     * @param string $description
+     * @param string $datetime
+     * @param string $status
+     * @param bool $deleted
+     */
     protected function addStyle(string $guid, string $name, array $tags, string $description, string $datetime, string $status, bool $deleted = false)
     {
         $style = new Style();
         $style->setGuid($guid);
         $style->setName($name);
-        foreach ($tags as $tag)
-        {
+        foreach ($tags as $tag) {
             $style->addTag($this->getTag($tag));
         }
         $style->setDescription($description);
         $style->setDateCreated(new \DateTime($datetime));
         $style->setStatus($status);
-        $style->setDeleted( $deleted);
+        $style->setDeleted($deleted);
         $this->em->persist($style);
         $this->em->flush();
     }
 
+    /**
+     * @param string $tag
+     * @return Tag|null|object
+     */
     protected function getTag(string $tag)
     {
         return $this->em->getRepository(Tag::class)->findOneBy(['tag' => $tag]) ?? new Tag($tag);

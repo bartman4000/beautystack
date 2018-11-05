@@ -20,7 +20,8 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.9",
-        "symfony/web-server-bundle": "*"
+        "symfony/web-server-bundle": "*",
+        "phpunit/phpunit": "^7.4"
     },
     "config": {
         "preferred-install": {

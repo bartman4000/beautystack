@@ -39,7 +39,6 @@ class StyleRepository extends ServiceEntityRepository
         $tagResults = $this->findByTag($word);
 
         return array_unique(array_merge($results, $tagResults), SORT_REGULAR);
-
     }
 
     public function findByTag(string $word)
@@ -47,7 +46,7 @@ class StyleRepository extends ServiceEntityRepository
         $repo = $this->getEntityManager()->getRepository(Tag::class);
         /** @var Tag $tag */
         $tag = $repo->findOneBy(['tag' => $word]);
-        if($tag) {
+        if ($tag) {
             $tag_id = $tag->getId();
             $qb = $this->createQueryBuilder('s');
             return $qb->where(':tag MEMBER OF s.tags')->setParameter('tag', $tag_id)

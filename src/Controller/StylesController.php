@@ -5,38 +5,36 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Style;
 use App\Repository\StyleRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 class StylesController extends AbstractController
 {
     /**
      * @Route("/styles", methods={"GET"})
      */
-    public function index(Request $request)
+    public function index(Request $request, ObjectManager $em): JsonResponse
     {
-
-        $em = $this->getDoctrine()->getManager();
         /** @var StyleRepository $repo */
         $repo = $em->getRepository(Style::class);
 
         $search = $request->query->get('search');
         $tag = $request->query->get('tag');
 
-        if($search) {
+        if ($search) {
             $styles = $repo->findByWord($search);
-        }
-        elseif ($tag) {
+        } elseif ($tag) {
             $styles = $repo->findByTag($tag);
-        }
-        else {
+        } else {
             $styles = $repo->findBy(['deleted' => false]);
         }
 
-       return $this->json($styles);
+        return $this->json($styles);
     }
 }

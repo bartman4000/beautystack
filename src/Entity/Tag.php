@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @UniqueEntity("tag")
@@ -39,8 +38,7 @@ class Tag implements JsonSerializable
     public function __construct(?string $tag = null)
     {
         $this->styles = new ArrayCollection();
-        if($tag)
-        {
+        if ($tag) {
             $this->setTag($tag);
         }
     }
@@ -90,7 +88,7 @@ class Tag implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array($this->getTag());
     }
