@@ -5,6 +5,8 @@
 Project is based on sqlite database so you need appropriate packages installed in your system (i.e. **pdo_sqlite** on Linux.)
 Database file is located at **var/beautystack.db**
 
+For newly created database you can fill it in with data fixtures running:
+
 ```
 php bin/console doctrine:fixtures:load
 ```
