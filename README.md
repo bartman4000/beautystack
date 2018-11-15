@@ -1,4 +1,3 @@
-# BeautyStack Technical Exercise
 
 ## Prepare
 
